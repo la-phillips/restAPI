@@ -1,25 +1,25 @@
 package com.application.model;
 
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Objects;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class Stock {
 
 	private String symbol;
 	private double price;
-	private String updatedAt;
+	private LocalTime lastUpdated;
 
 	public Stock() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public Stock(String symbol, double price, String updatedAt) {
+	public Stock(String symbol, double price) {
 		super();
 		this.symbol = symbol;
 		this.price = price;
-		this.updatedAt = updatedAt ; 
+		this.lastUpdated = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 	}
 
 	public String getSymbol() {
@@ -38,17 +38,17 @@ public class Stock {
 		this.price = price;
 	}
 
-	public String getUpdatedAt() {
-		return updatedAt;
+	public LocalTime getLastUpdated() {
+		return lastUpdated;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setLastUpdated(LocalTime lastUpdated) {
+		this.lastUpdated = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
 	}
 
 	@Override
 	public String toString() {
-		return "Stock [symbol=" + symbol + ", price=" + price + ", updated_at=" + updatedAt + "]";
+		return "Stock [symbol=" + symbol + ", price=" + price + ", last updated at=" + lastUpdated + "]";
 	}
 
 	@Override
