@@ -8,6 +8,8 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
+	<packaging>jar</packaging>
 	<groupId>com.restAPI-stock</groupId>
 	<artifactId>restAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>

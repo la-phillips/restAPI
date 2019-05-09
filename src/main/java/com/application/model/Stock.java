@@ -1,76 +1,76 @@
 package com.application.model;
 
-import java.util.Objects;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 public class Stock {
 
-	private String symbol;
-	private double price;
-	private LocalTime lastUpdated;
+    private String symbol;
+    private double price;
+    private String lastUpdated;
 
-	public Stock() {
-		super();
+    @SuppressWarnings("unused")
+    public Stock() {
+        super();
+    }
 
-	}
+    public Stock(String symbol, double price, String lastUpdated) {
+        super();
+        this.symbol = symbol;
+        this.price = price;
+        this.lastUpdated = lastUpdated;
+    }
 
-	public Stock(String symbol, double price) {
-		super();
-		this.symbol = symbol;
-		this.price = price;
-		this.lastUpdated = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
 
-	public LocalTime getLastUpdated() {
-		return lastUpdated;
-	}
+    public void setLastUpdated() {
+        this.lastUpdated = LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString();
+    }
 
-	public void setLastUpdated(LocalTime lastUpdated) {
-		this.lastUpdated = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
-	}
+    @Override
+    public String toString() {
+        return "Stock [symbol=" + symbol + ", price=" + price + ", last updated at=" + lastUpdated + "]";
+    }
 
-	@Override
-	public String toString() {
-		return "Stock [symbol=" + symbol + ", price=" + price + ", last updated at=" + lastUpdated + "]";
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
+        if (o == null)
+            return false;
 
-		if (o == null)
-			return false;
+        if (getClass() != o.getClass())
+            return false;
 
-		if (getClass() != o.getClass())
-			return false;
+        Stock stock = (Stock) o;
 
-		Stock stock = (Stock) o;
+        return Objects.equals(symbol, stock.symbol);
+    }
 
-		return Objects.equals(symbol, stock.symbol);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(symbol);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol);
+    }
 
 //	public static class StockBuilder {
 //
