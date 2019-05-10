@@ -1,11 +1,13 @@
 package com.application.model;
 
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Stock {
 
+    @Size(min = 1, message = "symbol should have at least 1 character")
     private String symbol;
     private double price;
     private String lastUpdated;

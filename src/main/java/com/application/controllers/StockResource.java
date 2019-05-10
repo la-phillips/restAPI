@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import com.application.model.Stock;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+
 
 @RestController
 public class StockResource {
@@ -38,7 +40,7 @@ public class StockResource {
     }
 
     @PostMapping("/stocks")
-    public ResponseEntity<Object> createStock(@RequestBody Stock stock) {
+    public ResponseEntity<Object> createStock(@Valid @RequestBody Stock stock) {
         Stock savedStock = service.save(stock);
         
         URI location = ServletUriComponentsBuilder
