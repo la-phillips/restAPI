@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.* ;
 import java.net.URI;
 import java.util.Map;
 
@@ -7,6 +8,9 @@ import java.util.Map;
 import com.application.exception.StockNotFoundException;
 import com.application.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +34,18 @@ public class StockResource {
         return service.findAll();
     }
 
-    @GetMapping("/stocks/{symbol}")
-    public Stock retrieveStock(@PathVariable String symbol) {
+    @GetMapping(value = "/stocks/{symbol}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public  Resource<Stock> retrieveStock(@PathVariable String symbol) {
         Stock stock = service.findOne(symbol);
         if (stock == null)
             throw new StockNotFoundException("Symbol: " + symbol);
 
-        return stock;
+        Resource<Stock> resource = new Resource<>(stock);
+
+        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllStocks());
+        resource.add(linkTo.withRel("all-stocks"));
+        return resource;
+
     }
 
     @PostMapping("/stocks")
