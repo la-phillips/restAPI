@@ -12,15 +12,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Date;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @ControllerAdvice
 @RestController
 public class StockExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity(exceptionResponse, INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(StockNotFoundException.class)
@@ -28,8 +33,9 @@ public class StockExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionResponse, NOT_FOUND);
     }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -37,6 +43,6 @@ public class StockExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), "Validation Failed", ex.getBindingResult().toString());
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(exceptionResponse, BAD_REQUEST);
     }
 }
